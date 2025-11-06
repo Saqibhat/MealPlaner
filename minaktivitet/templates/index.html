@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class = "container">
+    <h1>Velkommen, {{ username }}!</h1>
+    <p>Måltidsplanlegger</p>
+
+
+    <div class ="meal-planner">
+        <!-- Meal selectio section-->
+        <div class ="tabs">
+           <button class= " tab-btn active" data-type="alle">Alle</button>
+            <button class= " tab-btn" data-type="frokost">Frokost</button>
+            <button class = "tab-btn" data-type="Lunsj">Lunsj</button>
+            <button class="tab-btn" data-type="middag">Middag</button>
+
+        </div>
+        <div class="meal-list" id="meal-list">
+                <!-- Meals will be loaded here -->
+        </div>
+        <button class="btn-add-meal" id="add-meal-btn">+ Legg til nytt måltid</button>
+       <!--  <button class="btn-add-to-plan add-to-plan-btn" data-id="${meal.mealid}" data-title="${meal.title}">+ Legg til i plan </button> -->
+
+
+        
+    </div>
+
+    <!-- Week Plan Section -->
+     <div class="week-plan">
+        <h2>Min ukeplan</h2>
+        <div class="week-grid" id="week-grid">
+        <!-- Week plan will be loaded here -->
+        </div>
+    </div>
+     <!-- Add/Edit Meal Modal -->
+    
+    <div class="modal" id="meal-modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modal-title">Legg til nytt måltid</h2>
+            <form id="meal-form">
+                <input type="hidden" id="meal-id">
+                <div class="form-group">
+                    <label for="meal-title">Tittel:</label>
+                    <input type="text" id="meal-title" required>
+                </div>
+                <div class="form-group">
+                    <label for="meal-type">Type:</label>
+                    <select id="meal-type" required>
+                        <option value="frokost">Frokost</option>
+                        <option value="lunsj">Lunsj</option>
+                        <option value="middag">Middag</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="meal-desc">Beskrivelse:</label>
+                    <textarea id="meal-desc"></textarea>
+                </div>
+                <button type="submit" class="btn-save">Lagre</button>
+            </form>
+        </div>
+    </div>
+    
+     
+    <!-- Legg til i ukeplan Modal -->
+<div class="modal" id="plan-modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2 id="plan-modal-title">Legg til i ukeplan</h2>
+    <form id="plan-form">
+      <input type="hidden" id="plan-meal-id">
+      <div class="form-group">
+        <label for="plan-day">Dag:</label>
+        <select id="plan-day" required>
+          <option value="man">Mandag</option>
+          <option value="tir">Tirsdag</option>
+          <option value="ons">Onsdag</option>
+          <option value="tor">Torsdag</option>
+          <option value="fre">Fredag</option>
+          <option value="lør">Lørdag</option>
+          <option value="søn">Søndag</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="plan-type">Måltidstype:</label>
+        <select id="plan-type" required>
+          <option value="frokost">Frokost</option>
+          <option value="lunsj">Lunsj</option>
+          <option value="middag">Middag</option>
+        </select>
+      </div>
+      <button type="submit" class="btn-save">Legg til</button>
+    </form>
+  </div>
+</div>
+
+
+<!-- legg til ingrediens-->
+<div id="ingredient-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="ingredient-modal-title">Legg til ingrediens</h2>
+            <form id="ingredient-form">
+                <input type="hidden" id="ingredient-id">
+                <input type="hidden" id="ingredient-meal-id">
+                <div class="form-group">
+                    <label for="ingredient-name">Navn:</label>
+                    <input type="text" id="ingredient-name" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="ingredient-amount">Mengde:</label>
+                        <input type="number" id="ingredient-amount" step="0.1" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="ingredient-unit">Enhet:</label>
+                        <select id="ingredient-unit" required>
+                            <option value="stk">stk</option>
+                            <option value="g">g</option>
+                            <option value="kg">kg</option>
+                            <option value="dl">dl</option>
+                            <option value="l">l</option>
+                            <option value="ts">ts</option>
+                            <option value="ss">ss</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn-save">Lagre</button>
+            </form>
+        </div>
+    </div>
+
+    <!---Ingrediensvisning -->
+    <div id="ingredients-view" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="ingredients-title">Ingredienser</h2>
+            <ul id="ingredients-list"></ul>
+        </div>
+    </div>
+
+
+
+
+</div>
+{% endblock %}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Måltidsplanlegger</title>
+    <link href="/static/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div id="header">
+        <h1>Måltidsplanlegger</h1>
+        <div class="header-actions">
+            <!-- Dark Mode Toggle -->
+            <div class="theme-toggle">
+                <input type="checkbox" id="theme-switch" class="theme-switch-checkbox">
+                <label for="theme-switch" class="theme-switch-label">
+                    <span class="theme-switch-inner"></span>
+                    <span class="theme-switch-switch"></span>
+                </label>
+            </div>
+            <!-- User Authentication -->
+            <div class="auth-section">
+                {% if 'username' in session %}
+                    <span class="username">Logget inn som {{ session['username'] }}</span>
+                    <form action="{{ url_for('logout') }}" method="POST" style="display: inline;">
+                        <button type="submit" class="btn btn-logout">Logg ut</button>
+                    </form>
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="btn btn-login">Logg inn</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="msg {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div id="main">
+        {% block content %}{% endblock %}
+    </div>
+
+    <script src="{{ url_for('static', filename='js/mealPlanner.js') }}"></script>
+   <!-- <script src="{{ url_for('static', filename='js/darkMode.js') }}"></script>  -->
+</body>
+</html>
